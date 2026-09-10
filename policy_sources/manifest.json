@@ -1,0 +1,32 @@
+[
+  {
+    "id": "youth-rent",
+    "title": "청년월세 지원사업",
+    "category": "청년",
+    "agency": "국토교통부",
+    "shortDescription": "부모와 별도 거주하는 무주택 청년의 월세 부담을 줄이기 위한 지원사업입니다.",
+    "officialUrl": "https://www.molit.go.kr/USR/NEWS/dtl.jsp?id=95091798",
+    "lastVerifiedAt": "2026-03-19",
+    "file": "youth-rent.pdf"
+  },
+  {
+    "id": "employment-support",
+    "title": "국민취업지원제도",
+    "category": "취업",
+    "agency": "고용노동부",
+    "shortDescription": "취업지원서비스와 유형별 생계지원을 함께 제공하는 한국형 실업부조 제도입니다.",
+    "officialUrl": "https://www.moel.go.kr/policy/policydata/view.do?bbs_seq=20260301325",
+    "lastVerifiedAt": "2026-03-01",
+    "file": "employment-support.pdf"
+  },
+  {
+    "id": "housing-benefit",
+    "title": "주거급여",
+    "category": "주거",
+    "agency": "국토교통부",
+    "shortDescription": "주거가 필요한 가구에 임차급여 또는 수선유지급여 등을 지원하는 제도입니다.",
+    "officialUrl": "https://www.molit.go.kr/USR/policyTarget/m_24066/dtl.jsp?idx=1065",
+    "lastVerifiedAt": "2026-01-01",
+    "file": "housing-benefit.pdf"
+  }
+]

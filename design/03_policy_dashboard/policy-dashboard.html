@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>정책한눈에 AI - Search Policies</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#2563eb",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-primary-container": "#eeefff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary": "#0051b1",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-container": "#586377",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#434655",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "inverse-primary": "#b4c5ff",
+                        "primary": "#004ac6",
+                        "surface-container": "#eceef0",
+                        "on-tertiary-fixed-variant": "#004395",
+                        "background": "#f7f9fb",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#edf0ff",
+                        "on-surface": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#0053db",
+                        "tertiary-container": "#0f69dc",
+                        "on-tertiary-fixed": "#001a42",
+                        "secondary": "#545f73",
+                        "on-secondary-fixed": "#111c2d",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-container": "#d5e0f8",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#d8e2ff",
+                        "primary-fixed": "#dbe1ff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#00174b",
+                        "on-error": "#ffffff",
+                        "outline": "#737686"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "xs": "4px",
+                        "xl": "40px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "title-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f7f9fb; color: #191c1e; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        .ai-glow {
+            box-shadow: 0 0 15px rgba(0, 74, 198, 0.1);
+            border-color: rgba(0, 74, 198, 0.2);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest border-b border-outline-variant shadow-sm docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-lg">
+<a class="text-title-lg font-title-lg font-bold text-primary" href="#">정책한눈에 AI</a>
+<div class="hidden md:flex gap-md">
+<a class="text-secondary hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Search Policies</a>
+<a class="text-secondary hover:text-primary transition-colors duration-200" href="#">My Posts</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-md focus:border-primary focus:ring-1 focus:ring-primary outline-none w-64 transition-all" placeholder="Search..." type="text"/>
+</div>
+<button class="font-label-md text-label-md text-primary border border-primary px-4 py-2 rounded-lg hover:bg-surface-container-low transition-colors">Login</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">Get Started</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant ml-2" data-alt="A small, professional user avatar portrait. The image is a close-up headshot of a person looking directly at the camera with a neutral, pleasant expression. The lighting is soft and even, suitable for a corporate or government portal environment. The background is a clean, neutral gray or light blue to maintain focus on the subject. The style is highly realistic photographic quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxFYLJqkOcTw6OWfbMdrhDDLLhw0Zce2WVxy20R4JlfXld9Ei2I_LxG3wuyfhzCojtpvGhxMLMPZeOxHMRUJ7iTslSf6NH0SFXO7EoJGXYY04PuskcsTaNkF-hM7EfCMrIppCC8wb5y85abvsog9bdo5L_voN_WH5fuxvmtfNdggSWmfJQF6sHjIqa1mijYcaaa8ss4V5ortzxepg4bhahXrIxoFgs1E3lgX14eDkEp9vWiD3X49NHVw"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center pt-xl pb-24 px-margin-mobile md:px-gutter max-w-container-max mx-auto w-full gap-xl">
+<!-- Search Section -->
+<section class="w-full max-w-3xl flex flex-col items-center text-center gap-lg mt-8">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">어떤 정책이 궁금하신가요?</h1>
+<p class="font-body-lg text-body-lg text-secondary">청년 월세 지원, 취업 지원, 주거급여 등을 검색해보세요.</p>
+<div class="relative w-full group ai-glow rounded-full bg-surface-container-lowest transition-all duration-300">
+<span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-primary text-2xl">search</span>
+<input class="w-full pl-16 pr-24 py-5 rounded-full border border-outline-variant bg-transparent text-body-lg focus:border-primary focus:ring-2 focus:ring-primary-container/20 outline-none transition-all placeholder:text-outline/70" placeholder="검색어를 입력하세요..." type="text"/>
+<button class="absolute right-2 top-1/2 -translate-y-1/2 bg-primary text-on-primary font-label-md px-6 py-3 rounded-full hover:bg-primary/90 transition-colors">검색</button>
+</div>
+<!-- Categories -->
+<div class="flex flex-wrap justify-center gap-sm mt-6 w-full">
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">청년</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">주거</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">취업</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">복지</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">육아</button>
+<button class="px-6 py-2 rounded-full border border-outline-variant bg-surface-container-lowest text-on-surface-variant hover:border-primary hover:text-primary transition-colors text-label-md font-label-md shadow-sm">교육</button>
+</div>
+</section>
+<!-- Recommended Policies (Bento Grid Style) -->
+<section class="w-full mt-lg">
+<div class="flex items-center gap-2 mb-lg">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">추천 정책</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Card 1 -->
+<div class="glass-card rounded-[16px] p-lg flex flex-col gap-md hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="flex gap-2">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-label-sm font-label-sm">주거</span>
+<span class="bg-error/10 text-error px-3 py-1 rounded-full text-label-sm font-label-sm font-bold">접수중</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">bookmark_border</span>
+</div>
+<div class="flex-grow">
+<p class="text-label-md font-label-md text-secondary mb-1">국토교통부</p>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2 leading-tight">청년월세 특별지원</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">경제적 어려움을 겪는 청년층의 주거비 부담 경감을 위해 월세를 지원합니다.</p>
+</div>
+<button class="w-full mt-4 border border-primary text-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                        자세히 보기 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Card 2 -->
+<div class="glass-card rounded-[16px] p-lg flex flex-col gap-md hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="flex gap-2">
+<span class="bg-tertiary/10 text-tertiary px-3 py-1 rounded-full text-label-sm font-label-sm">취업</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-label-sm">상시</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">bookmark_border</span>
+</div>
+<div class="flex-grow">
+<p class="text-label-md font-label-md text-secondary mb-1">고용노동부</p>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2 leading-tight">국민취업지원제도</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">취업을 희망하는 분들께 취업지원서비스를 종합적으로 제공하고, 저소득 구직자에는 최소한의 소득도 지원합니다.</p>
+</div>
+<button class="w-full mt-4 border border-primary text-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                        자세히 보기 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Card 3 -->
+<div class="glass-card rounded-[16px] p-lg flex flex-col gap-md hover:-translate-y-1 transition-transform duration-300">
+<div class="flex justify-between items-start">
+<div class="flex gap-2">
+<span class="bg-[#10b981]/10 text-[#059669] px-3 py-1 rounded-full text-label-sm font-label-sm">복지</span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-label-sm">상시</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">bookmark_border</span>
+</div>
+<div class="flex-grow">
+<p class="text-label-md font-label-md text-secondary mb-1">보건복지부</p>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2 leading-tight">주거급여</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">기초생활보장제도 내 주거급여를 개편, 소득·주거형태·주거비 부담수준 등을 종합적으로 고려하여 저소득층의 주거비를 지원합니다.</p>
+</div>
+<button class="w-full mt-4 border border-primary text-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+                        자세히 보기 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high border-t border-outline-variant w-full py-xl px-gutter flex flex-col items-center gap-md mt-auto">
+<div class="font-bold text-on-surface mb-4">정책한눈에 AI</div>
+<div class="flex flex-wrap justify-center gap-6 mb-4">
+<a class="font-label-sm text-label-sm text-secondary hover:underline decoration-primary transition-opacity duration-300" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary hover:underline decoration-primary transition-opacity duration-300" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary hover:underline decoration-primary transition-opacity duration-300" href="#">Contact Support</a>
+<a class="font-label-sm text-label-sm text-secondary hover:underline decoration-primary transition-opacity duration-300" href="#">Disclaimer</a>
+</div>
+<div class="font-body-md text-body-md text-secondary text-center">
+            © 2024 정책한눈에 AI. All rights reserved. Official Government Policy Portal.
+        </div>
+</footer>
+</body></html>

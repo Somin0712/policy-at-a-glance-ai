@@ -1,0 +1,14 @@
+"use client";
+import { useEffect,useMemo,useState } from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+type Row={id:string;title:string;policy:string;policyId?:string;level:string;date:string};
+export default function MyArticles(){
+  const [q,setQ]=useState("");const [level,setLevel]=useState("전체");const [rows,setRows]=useState<Row[]>([]);const [status,setStatus]=useState<"loading"|"ready"|"guest"|"error">("loading");const router=useRouter();
+  async function load(){try{const r=await fetch("/api/articles");const d=await r.json();if(r.status===401){setStatus("guest");setRows([]);return;}if(!r.ok)throw new Error(d.error);setRows((d.articles||[]).map((a:any)=>({id:a.id,title:a.title,policy:a.policy_id??"정책",policyId:a.policy_id,level:a.explanation_level==="quick"?"한눈에":a.explanation_level==="detailed"?"상세하게":"쉽게",date:new Date(a.updated_at).toLocaleDateString("ko-KR")})));setStatus("ready");}catch{setStatus("error")}}
+  useEffect(()=>{load()},[]);
+  async function remove(id:string){if(!confirm("이 글을 삭제할까요?"))return;const r=await fetch(`/api/articles/${encodeURIComponent(id)}`,{method:"DELETE"});if(r.ok)setRows(v=>v.filter(x=>x.id!==id));else alert((await r.json()).error??"삭제하지 못했습니다.")}
+  const filtered=useMemo(()=>rows.filter(a=>(level==="전체"||a.level===level)&&(`${a.title} ${a.policy}`).includes(q)),[q,level,rows]);
+  return <><Header active="articles"/><main className="container"><div className="page-header"><div><h1>내가 만든 정책 글</h1><p>{status==="guest"?"로그인하면 저장한 정책 글을 확인하고 다시 수정할 수 있습니다.":status==="error"?"저장한 글을 불러오지 못했습니다.":"내 계정에 저장된 글입니다."}</p></div></div><div className="panel" style={{marginBottom:18,padding:14,display:"flex",gap:12,justifyContent:"space-between",flexWrap:"wrap"}}><div className="searchbar" style={{margin:0,width:"380px",boxShadow:"none"}}><input value={q} onChange={e=>setQ(e.target.value)} placeholder="정책명 또는 글 제목 검색"/></div><div className="chips" style={{margin:0}}>{["전체","한눈에","쉽게","상세하게"].map(l=><button key={l} className={`chip ${level===l?"active":""}`} onClick={()=>setLevel(l)}>{l}</button>)}</div></div>{status==="loading"?<div className="empty">저장한 글을 불러오는 중...</div>:filtered.length?<div className="article-grid">{filtered.map(a=><article key={a.id} className="article-card"><div className="article-card-body"><div className="card-topline"><span className="badge soft">{a.level}</span><span className="muted small">{a.date}</span></div><h3>{a.title}</h3><p>원본: {a.policy}</p></div><div className="article-card-footer"><button className="icon-btn" onClick={()=>router.push(`/articles/${a.id}`)}>보기</button><button className="icon-btn" onClick={()=>router.push(`/articles/${a.id}?edit=1`)}>수정</button><button className="icon-btn" onClick={()=>remove(a.id)}>삭제</button></div></article>)}</div>:<div className="empty">{status==="guest"?"로그인 후 저장 기능을 사용할 수 있습니다.":"저장된 글이 없습니다."}</div>}</main><Footer/></>}

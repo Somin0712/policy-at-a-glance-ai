@@ -1,0 +1,5 @@
+import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+
+export async function GET(){const supabase=await createClient();if(!supabase)return NextResponse.json({error:"Supabase가 설정되지 않았습니다."},{status:503});const {data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({error:"로그인이 필요합니다."},{status:401});const {data,error}=await supabase.from("articles").select("*").order("updated_at",{ascending:false});if(error)return NextResponse.json({error:error.message},{status:500});return NextResponse.json({articles:data});}
+export async function POST(req:Request){const supabase=await createClient();if(!supabase)return NextResponse.json({error:"Supabase가 설정되지 않았습니다."},{status:503});const {data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({error:"로그인이 필요합니다."},{status:401});const body=await req.json();const {data,error}=await supabase.from("articles").insert({...body,user_id:user.id}).select().single();if(error)return NextResponse.json({error:error.message},{status:500});return NextResponse.json({article:data});}
